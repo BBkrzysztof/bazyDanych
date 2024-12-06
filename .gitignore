@@ -10,3 +10,4 @@
 /vendor/
 ###< symfony/framework-bundle ###
 /.xdebug.log
+/xdebug.log
