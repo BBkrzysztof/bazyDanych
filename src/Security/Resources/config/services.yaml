@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Security\EventListener\RequiredFieldsListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller }

@@ -5,7 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="daa34729-a270-4fea-a1af-5b0578f9563b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EventListener/JsonRequestTransformerListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/Handler/BadRequestHandler.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Exception/JsonBadRequestException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Annotation/RequiredFields.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Controller/LoginController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/EventListener/RequiredFieldsListener.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Resources/config/services.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Security/Service/Security.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b3313af2-0436-49dc-9869-bd771da5e0bf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b3313af2-0436-49dc-9869-bd771da5e0bf.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20241206155647.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20241206155647.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/Entity/Token.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Entity/Token.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/Enum/UserRolesEnum.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Enum/UserRolesEnum.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/SecurityBundle.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/SecurityBundle.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/Trait/OptionalUserAwareTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Trait/OptionalUserAwareTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/Trait/UserAwareTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Trait/UserAwareTrait.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +47,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpDebugGeneral" max_simultaneous_connections="1" />
+  <component name="PhpDebugGeneral" listening_started="true" max_simultaneous_connections="1" />
   <component name="PhpServers">
     <servers>
       <server host="localhost" id="f3a7bf14-6885-438d-88d4-04d2eda4346c" name="docker" port="9003" use_path_mappings="true">
@@ -102,6 +124,7 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
       <path value="$PROJECT_DIR$/vendor/ramsey/uuid-doctrine" />
+      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
     </include_path>
   </component>
   <component name="ProjectId" id="2nkssymXIfjTCbNlcTJDgEMWrzF" />
@@ -109,26 +132,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.php.debug.servers&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Krzysztof/Desktop/bazy danych/src/Security/Resources/config",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "settings.php.debug.servers",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Krzysztof\Desktop\bazy danych\src\Security\Resources\config" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Krzysztof\Desktop\bazy danych\src\Security\Resources" />
       <recent name="C:\Users\Krzysztof\Desktop\bazy danych\public" />
       <recent name="C:\Users\Krzysztof\Desktop\bazy danych" />
     </key>
@@ -148,7 +176,7 @@
       <updated>1729528619660</updated>
       <workItem from="1729528622967" duration="2696000" />
       <workItem from="1731144263434" duration="4973000" />
-      <workItem from="1733499380596" duration="1349000" />
+      <workItem from="1733499380596" duration="10986000" />
     </task>
     <servers />
   </component>
@@ -161,14 +189,14 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint type="php">
-          <url>file://$PROJECT_DIR$/src/Kernel.php</url>
-          <line>9</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/src/Security/Entity/Token.php</url>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/Security/Controller/LoginController.php</url>
+          <line>43</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

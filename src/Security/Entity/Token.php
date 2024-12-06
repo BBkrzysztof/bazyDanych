@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Security\Entity;
+namespace Security\Entity;
 
 use App\Interface\UserAwareInterface;
 use Doctrine\ORM\Mapping as ORM;
-use App\Security\Trait\UserAwareTrait;
+use Security\Trait\UserAwareTrait;
 use Ramsey\Uuid\UuidInterface;
 
 /**

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Security\Entity;
+namespace Security\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
-use App\Security\Enum\UserRolesEnum;
+use Security\Enum\UserRolesEnum;
 
 /**
  * @ORM\Entity
@@ -42,7 +42,7 @@ class User
     private string $resetPasswordToken = '';
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private ?\DateTimeInterface $deletedAt = null;
 

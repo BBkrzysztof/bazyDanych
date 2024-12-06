@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Security\Trait;
+namespace Security\Trait;
 
-use App\Security\Entity\User;
+use Security\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

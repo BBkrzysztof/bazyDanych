@@ -21,6 +21,7 @@
         "symfony/framework-bundle": "5.4.*",
         "symfony/proxy-manager-bridge": "5.4.*",
         "symfony/runtime": "5.4.*",
+        "symfony/serializer": "5.4.*",
         "symfony/yaml": "5.4.*"
     },
     "config": {
@@ -38,11 +39,9 @@
     },
     "autoload": {
         "psr-4": {
+            "Security\\": "src/Security",
             "App\\": "src/"
-        },
-        "classmap": [
-            "vendor/doctrine/annotations/lib/Doctrine/Common/Annotations"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {

@@ -1,17 +1,14 @@
 <?php
 
-namespace Security\Trait;
+namespace Security\Service;
 
 use Security\Entity\User;
 
-/**
- * handles relation with user
- */
-trait OptionalUserAwareTrait
+class Security
 {
-    private ?User $user = null;
+    private User $user;
 
-    public function getUser(): ?User
+    public function getUser(): User
     {
         return $this->user;
     }

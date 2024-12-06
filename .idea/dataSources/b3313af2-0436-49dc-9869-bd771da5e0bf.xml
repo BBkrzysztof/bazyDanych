@@ -935,5 +935,125 @@ symfony|schema||symfony||UPDATE|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="291" parent="1" name="symfony"/>
+    <table id="292" parent="290" name="doctrine_migration_versions">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb3_unicode_ci</CollationName>
+    </table>
+    <table id="293" parent="290" name="token">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_unicode_ci</CollationName>
+    </table>
+    <table id="294" parent="290" name="user">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_unicode_ci</CollationName>
+    </table>
+    <column id="295" parent="292" name="version">
+      <DasType>varchar(191)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="296" parent="292" name="executed_at">
+      <DasType>datetime|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="297" parent="292" name="execution_time">
+      <DasType>int|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <index id="298" parent="292" name="PRIMARY">
+      <ColNames>version</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="299" parent="292" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="300" parent="293" name="id">
+      <Comment>(DC2Type:uuid)</Comment>
+      <DasType>char(36)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="301" parent="293" name="user_id">
+      <Comment>(DC2Type:uuid)</Comment>
+      <DasType>char(36)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="302" parent="293" name="expired_at">
+      <DasType>date|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="303" parent="293" name="FK_5F37A13BA76ED395">
+      <ColNames>user_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>user</RefTableName>
+    </foreign-key>
+    <index id="304" parent="293" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="305" parent="293" name="IDX_5F37A13BA76ED395">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="306" parent="293" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="307" parent="294" name="id">
+      <Comment>(DC2Type:uuid)</Comment>
+      <DasType>char(36)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="308" parent="294" name="email">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="309" parent="294" name="password">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="310" parent="294" name="role">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="311" parent="294" name="reset_password_token">
+      <DasType>varchar(20)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="312" parent="294" name="deleted_at">
+      <DasType>date|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <index id="313" parent="294" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="314" parent="294" name="UNIQ_8D93D649E7927C74">
+      <ColNames>email</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="315" parent="294" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="316" parent="294" name="UNIQ_8D93D649E7927C74">
+      <UnderlyingIndexName>UNIQ_8D93D649E7927C74</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>
