@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="daa34729-a270-4fea-a1af-5b0578f9563b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Doctrine/UuidGenerator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Interface/OptionalUserAwareInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Interface/UserAwareInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Entity/Token.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Entity/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Enum/UserRolesEnum.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/SecurityBundle.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Trait/OptionalUserAwareTrait.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Trait/UserAwareTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xdebug.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +148,7 @@
       <updated>1729528619660</updated>
       <workItem from="1729528622967" duration="2696000" />
       <workItem from="1731144263434" duration="4973000" />
-      <workItem from="1733499380596" duration="1188000" />
+      <workItem from="1733499380596" duration="1349000" />
     </task>
     <servers />
   </component>
