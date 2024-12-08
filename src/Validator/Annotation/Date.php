@@ -2,13 +2,21 @@
 
 namespace App\Validator\Annotation;
 
-use Doctrine\Common\Annotations\Annotation\Target;
+use App\Validator\Annotation\BaseAnnotation\BaseValidationAnnotation;
 
 /**
  * @Annotation
  * @Target("PROPERTY")
  */
-class Date
+class Date extends BaseValidationAnnotation
 {
+    public function getMessage(): string
+    {
+        return '';
+    }
 
+    public function getHandler(): string
+    {
+        return '';
+    }
 }

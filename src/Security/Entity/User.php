@@ -3,6 +3,7 @@
 namespace Security\Entity;
 
 use Doctrine\Common\Collections\Collection;
+use App\Validator\Annotation\Unique;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Security\Enum\UserRolesEnum;
@@ -22,11 +23,13 @@ class User
     private string $id;
 
     /**
+     * @Unique
      * @ORM\Column(type="string", unique=true, length=255)
      */
     private string $email;
 
     /**
+     *
      * @ORM\Column(type="string", length=255)
      */
     private string $password;
