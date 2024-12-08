@@ -42,4 +42,9 @@ class Token implements UserAwareInterface
     {
         $this->expiredAt = $expiredAt;
     }
+
+    public function getExpiredAt(): \DateTimeInterface
+    {
+        return $this->expiredAt;
+    }
 }

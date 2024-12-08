@@ -7,12 +7,12 @@ use Security\Entity\User;
 
 class Security
 {
-    private User $user;
-    private Token $token;
+    private ?User $user = null;
+    private ?Token $token = null;
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
-        return $this->user;
+        return $this?->user;
     }
 
     public function setUser(User $user): void
@@ -20,9 +20,9 @@ class Security
         $this->user = $user;
     }
 
-    public function getToken(): Token
+    public function getToken(): ?Token
     {
-        return $this->token;
+        return $this?->token;
     }
 
     public function setToken(Token $token): void

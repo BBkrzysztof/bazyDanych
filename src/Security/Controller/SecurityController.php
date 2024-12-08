@@ -6,6 +6,7 @@ use Security\Service\JwtService;
 use App\Serializer\EntitySerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Security\Entity\User;
+use Security\Service\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -91,9 +92,18 @@ class SecurityController extends AbstractController
     /**
      * @Route("/loogut", methods={"POST"})
      */
-    public function logout(Request $request): JsonResponse
+    public function logout(
+        Request                $request,
+        Security               $security,
+        EntityManagerInterface $entityManager
+    ): JsonResponse
     {
+        $token = $security->getToken();
+
+        $entityManager->remove($token);
+        $entityManager->flush();
+
         //@todo add logout logic
-        return new JsonResponse([]);
+        return new JsonResponse([],Response::HTTP_NO_CONTENT);
     }
 }

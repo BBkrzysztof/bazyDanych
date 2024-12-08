@@ -8,6 +8,10 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.controller }
 
+  Security\EventListener\JwtRequestListener:
+    tags:
+      - { name: "kernel.event_listener", event: "kernel.request",method: "onKernelRequest", priority: 999 }
+
   Security\Service\JwtService:
     arguments:
       $privateKey: '%private_key%'
