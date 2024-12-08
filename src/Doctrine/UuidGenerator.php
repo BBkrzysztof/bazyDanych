@@ -11,4 +11,9 @@ class UuidGenerator extends AbstractGenerator
     {
         return Uuid::uuid4()->toString();
     }
+
+    public function isPostInsertGenerator(): bool
+    {
+        return false;
+    }
 }

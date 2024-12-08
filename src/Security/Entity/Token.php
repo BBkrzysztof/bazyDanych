@@ -17,14 +17,29 @@ class Token implements UserAwareInterface
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\Column(type="guid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="App\Doctrine\UuidGenerator")
+     * @ORM\CustomIdGenerator("doctrine.uuid_generator")
      */
-    private UuidInterface $id;
+    private string $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private \DateTimeInterface $expiredAt;
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function setExpiredAt(\DateTimeInterface $expiredAt): void
+    {
+        $this->expiredAt = $expiredAt;
+    }
 }

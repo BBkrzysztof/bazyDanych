@@ -7,3 +7,7 @@ services:
   Security\EventListener\RequiredFieldsListener:
     tags:
       - { name: kernel.event_listener, event: kernel.controller }
+
+  Security\Service\JwtService:
+    arguments:
+      $privateKey: '%private_key%'

@@ -15,11 +15,11 @@ class User
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\Column(type="guid", unique=true)
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="App\Doctrine\UuidGenerator")
+     * @ORM\CustomIdGenerator("doctrine.uuid_generator")
      */
-    private UuidInterface $id;
+    private string $id;
 
     /**
      * @ORM\Column(type="string", unique=true, length=255)
@@ -51,9 +51,14 @@ class User
      */
     private Collection $tokens;
 
-    public function setId(UuidInterface $id): void
+    public function setId(string $id): void
     {
         $this->id = $id;
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     public function setEmail(string $email): void
@@ -68,7 +73,7 @@ class User
 
     public function setPassword(string $password): void
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
 
     public function getPassword(): string

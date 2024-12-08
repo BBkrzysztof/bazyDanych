@@ -7,7 +7,6 @@ use Security\Annotation\RequiredFields;
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\HttpKernel\Controller\ErrorController;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class RequiredFieldsListener
 {
