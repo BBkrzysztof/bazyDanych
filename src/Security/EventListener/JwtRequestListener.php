@@ -51,21 +51,21 @@ class JwtRequestListener
 
         if (!$data) {
             //@todo add error handler
-            throw new UnauthorizedHttpException('Invalid jwt token');
+            throw new UnauthorizedHttpException('', 'Invalid jwt token');
         }
 
         /** @var Token $token */
         $token = $this->entityManager->getRepository(Token::class)->findOneBy(['id' => $data['tokenId']]);
 
         if (!$token) {
-            throw new UnauthorizedHttpException('Invalid jwt token');
+            throw new UnauthorizedHttpException('', 'Invalid jwt token');
         }
 
         if (time() > $token->getExpiredAt()->getTimestamp()) {
             $this->entityManager->remove($token);
             $this->entityManager->flush();
 
-            throw new UnauthorizedHttpException('Jwt token expired');
+            throw new UnauthorizedHttpException('', 'Jwt token expired');
         }
 
         $this->security->setToken($token);

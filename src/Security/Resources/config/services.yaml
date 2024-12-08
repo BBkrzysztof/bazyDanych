@@ -8,6 +8,10 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.controller }
 
+  Security\EventListener\AuthenticatedListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller }
+
   Security\EventListener\JwtRequestListener:
     tags:
       - { name: "kernel.event_listener", event: "kernel.request",method: "onKernelRequest", priority: 999 }
