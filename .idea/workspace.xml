@@ -5,29 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="daa34729-a270-4fea-a1af-5b0578f9563b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/EventListener/JsonRequestTransformerListener.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exception/Handler/BadRequestHandler.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exception/JsonBadRequestException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Annotation/RequiredFields.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Controller/LoginController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/EventListener/RequiredFieldsListener.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Resources/config/services.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Security/Service/Security.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b3313af2-0436-49dc-9869-bd771da5e0bf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b3313af2-0436-49dc-9869-bd771da5e0bf.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/Version20241206155647.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20241206155647.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/Entity/Token.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Entity/Token.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Controller/LoginController.php" afterDir="false" />
+=======
+<<<<<<< Updated upstream
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/src/Serializer/EntitySerializer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/Controller/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Controller/SecurityController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Security/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/Enum/UserRolesEnum.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Enum/UserRolesEnum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/SecurityBundle.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/SecurityBundle.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/Trait/OptionalUserAwareTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Trait/OptionalUserAwareTrait.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/Trait/UserAwareTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/Trait/UserAwareTrait.php" afterDir="false" />
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,18 +37,12 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" max_simultaneous_connections="1" />
+  <component name="PhpDebugGeneral" listening_started="true" max_simultaneous_connections="1" show_pre_config_in_remote_debug="false" />
   <component name="PhpServers">
     <servers>
-      <server host="localhost" id="f3a7bf14-6885-438d-88d4-04d2eda4346c" name="docker" port="9003" use_path_mappings="true">
+      <server host="localhost" id="71d8d794-e562-4d0c-9c41-66d1714faa42" name="localhost" port="8080">
         <path_mappings>
-          <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html/public/index.php" />
-        </path_mappings>
-      </server>
-      <server host="localhost" id="71d8d794-e562-4d0c-9c41-66d1714faa42" name="localhost" port="8080" use_path_mappings="true">
-        <path_mappings>
-          <mapping local-root="$PROJECT_DIR$" remote-root="/var/www/html" />
-          <mapping local-root="$PROJECT_DIR$/public" remote-root="/var/www/html/public" />
+          <mapping local-root="$PROJECT_DIR$" remote-root="/" />
         </path_mappings>
       </server>
     </servers>
@@ -132,6 +116,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< Updated upstream
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -142,15 +127,29 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "settings.php.debug.servers",
+    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php.debug",
     "vue.rearranger.settings.migration": "true"
+=======
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Krzysztof/Desktop/bazy danych/src/Security/Resources/config&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.php.debug.servers&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+>>>>>>> Stashed changes
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Krzysztof\Desktop\bazy danych\src\Security\Resources\config" />
@@ -162,7 +161,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="debugger" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" filter_connections="FILTER" server_name="docker" session_id="PHPSTORM">
+    <configuration name="localhost" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" filter_connections="FILTER" server_name="localhost" session_id="PHPSTORM">
       <method v="2" />
     </configuration>
   </component>
@@ -176,7 +175,12 @@
       <updated>1729528619660</updated>
       <workItem from="1729528622967" duration="2696000" />
       <workItem from="1731144263434" duration="4973000" />
+<<<<<<< Updated upstream
       <workItem from="1733499380596" duration="10986000" />
+      <workItem from="1733646193856" duration="620000" />
+=======
+      <workItem from="1733499380596" duration="13195000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
@@ -194,11 +198,31 @@
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
+<<<<<<< Updated upstream
           <url>file://$PROJECT_DIR$/src/Security/Controller/LoginController.php</url>
+          <line>42</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/Security/Controller/LoginController.php</url>
+          <line>33</line>
+          <option name="timeStamp" value="11" />
+=======
+          <url>file://$PROJECT_DIR$/src/Security/Controller/SecurityController.php</url>
           <line>43</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/Security/Controller/SecurityController.php</url>
+          <line>36</line>
+          <option name="timeStamp" value="18" />
+>>>>>>> Stashed changes
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

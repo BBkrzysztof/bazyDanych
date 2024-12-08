@@ -8,7 +8,7 @@
 /public/bundles/
 /var/
 /vendor/
-/.idea
+/.idea/*
 ###< symfony/framework-bundle ###
 /.xdebug.log
 /xdebug.log

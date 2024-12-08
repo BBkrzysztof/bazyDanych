@@ -21,6 +21,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+            SecurityBundle:
+                type: annotation
+                is_bundle: true
+                dir: '/Entity'
+                prefix: 'Security\Entity'
+                alias: SecurityBundle
 
 when@test:
     doctrine:

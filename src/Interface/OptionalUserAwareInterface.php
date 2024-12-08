@@ -2,7 +2,7 @@
 
 namespace App\Interface;
 
-use App\Security\Entity\User;
+use Security\Entity\User;
 
 interface OptionalUserAwareInterface
 {

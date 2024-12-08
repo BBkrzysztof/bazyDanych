@@ -6,9 +6,9 @@ use App\Exception\JsonBadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class BadRequestHandler
+class NotFoundHandler
 {
     /**
      * @param ExceptionEvent $event
@@ -18,16 +18,14 @@ class BadRequestHandler
 
         $exception = $event->getThrowable();
 
-        if (!($exception instanceof BadRequestHttpException)) {
+        if (!($exception instanceof NotFoundHttpException)) {
             return;
         }
 
         $errors = [
-            'data' =>
-                $exception instanceof JsonBadRequestException ? $exception->getPayload() : [$exception->getMessage()]
-
+            'data' => $exception->getMessage() ?: 'Resource not found'
         ];
 
-        $event->setResponse(new JsonResponse($errors, Response::HTTP_BAD_REQUEST));
+        $event->setResponse(new JsonResponse($errors, Response::HTTP_NOT_FOUND));
     }
 }

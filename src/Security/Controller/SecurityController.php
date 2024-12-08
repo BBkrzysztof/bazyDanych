@@ -2,6 +2,8 @@
 
 namespace Security\Controller;
 
+use App\Serializer\EntitySerializer;
+use Security\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,7 +14,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * @Route("/api")
  */
-class LoginController extends AbstractController
+class SecurityController extends AbstractController
 {
 
     /**
@@ -26,10 +28,10 @@ class LoginController extends AbstractController
 
     /**
      * @Route("/login", methods={"POST"})
-     * @RequiredFields(fields={"name", "email"})
      */
-    public function login(Request $request): JsonResponse
+    public function login(Request $request, EntitySerializer $entitySerializer): JsonResponse
     {
+        $user = $entitySerializer->deserialize($request, User::class, '550e8400-e29b-41d4-a716-446655440000');
         //@todo add login logic
         return new JsonResponse([]);
 

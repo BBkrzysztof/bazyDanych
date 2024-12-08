@@ -5,6 +5,7 @@ namespace Security\EventListener;
 use App\Exception\JsonBadRequestException;
 use Security\Annotation\RequiredFields;
 use Doctrine\Common\Annotations\Reader;
+use Symfony\Component\HttpKernel\Controller\ErrorController;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
@@ -22,7 +23,12 @@ class RequiredFieldsListener
      */
     public function onKernelController(ControllerEvent $event): void
     {
-        [$controller, $method] = $event->getController();
+        $controller = $event->getController();
+        if ($controller instanceof ErrorController) {
+            return;
+        }
+
+        [$controller, $method] = $controller;
 
         $annotations = $this->annotationReader->getMethodAnnotations(new \ReflectionMethod($controller, $method));
 
