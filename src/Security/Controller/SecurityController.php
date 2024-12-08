@@ -43,7 +43,6 @@ class SecurityController extends AbstractController
         Validator              $validator
     ): JsonResponse
     {
-        //@todo add validation
         /** @var User $user */
         $user = $entitySerializer->deserialize($request, User::class);
 
@@ -52,8 +51,6 @@ class SecurityController extends AbstractController
         if($errors){
             throw new JsonBadRequestException($errors);
         }
-
-        dd($errors);
 
         $entityManager->persist($user);
         $entityManager->flush();
@@ -116,7 +113,6 @@ class SecurityController extends AbstractController
         $entityManager->remove($token);
         $entityManager->flush();
 
-        //@todo add logout logic
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 }
