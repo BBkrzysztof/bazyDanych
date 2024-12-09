@@ -97,7 +97,7 @@ class UserController extends AbstractController
     /**
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin"})
-     * @RequiredFields(fields={"role"}, strict=true)
+     * @RequiredFields(fields={"role"})
      * @Route("/user/change-role/{id}", methods={"POST"})
      */
     public function changeRole(Request $request, $id): JsonResponse

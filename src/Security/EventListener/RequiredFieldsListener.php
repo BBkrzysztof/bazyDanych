@@ -45,7 +45,7 @@ class RequiredFieldsListener
                 if ($annotation->strict) {
                     foreach ($request->request->all() as $field => $value) {
                         if (!in_array($field, $annotation->fields)) {
-                            $missingFields[$field] = 'is not expected';
+                            $missingFields[$field] = 'field is not expected';
                         }
                     }
                 }
