@@ -11,4 +11,5 @@ use Doctrine\Common\Annotations\Annotation\Target;
 class RequiredFields
 {
     public array $fields = [];
+    public bool $strict = false;
 }

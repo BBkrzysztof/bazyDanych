@@ -64,12 +64,46 @@ class UserController extends AbstractController
     /**
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin"})
-     * @RequiredFields(fields={"role"})
+     * @Route("/user/list", methods={"GET"})
+     */
+    public function listUser(): JsonResponse
+    {
+        return new JsonResponse();
+    }
+
+    /**
+     * @Authenticated
+     * @RequiredFields(fields={})
+     * @Route("/user/edit/{id}", methods={"PUT"})
+     */
+    public function editUser(): JsonResponse
+    {
+        //@todo add edit user
+        return new JsonResponse();
+    }
+
+    /**
+     * @Authenticated
+     * @RoleGuard(roles={"RoleAdmin"})
+     * @RequiredFields(fields={})
+     * @Route("/user/delete/{id}", methods={"DELETE"})
+     */
+    public function deleteUser(): JsonResponse
+    {
+        //@todo add delete user
+        return new JsonResponse();
+    }
+
+    /**
+     * @Authenticated
+     * @RoleGuard(roles={"RoleAdmin"})
+     * @RequiredFields(fields={"role"}, strict=true)
      * @Route("/user/change-role/{id}", methods={"POST"})
      */
     public function changeRole(Request $request, $id): JsonResponse
     {
         $updatedUser = $this->entitySerializer->deserialize($request, User::class, $id);
+
 
         $errors = $this->validator->validate($updatedUser, ['update-role']);
 
