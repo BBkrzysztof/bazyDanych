@@ -4,6 +4,7 @@ namespace Security\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use App\Validator\Annotation\Unique;
+use App\Validator\Annotation\OneOf;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Security\Enum\UserRolesEnum;
@@ -23,7 +24,7 @@ class User
     private string $id;
 
     /**
-     * @Unique
+     * @Unique(groups={"create"})
      * @ORM\Column(type="string", unique=true, length=255)
      */
     private string $email;
@@ -35,6 +36,7 @@ class User
     private string $password;
 
     /**
+     * @OneOf(enumPath="Security\Enum\UserRolesEnum", groups={"update-role"})
      * @ORM\Column(type="string", length=20)
      */
     private string $role;

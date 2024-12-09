@@ -4,6 +4,7 @@ namespace App\Validator;
 
 use App\Validator\Annotation\BaseAnnotation\BaseValidationAnnotation;
 use Doctrine\Common\Annotations\Reader;
+use Doctrine\Persistence\Proxy;
 use ReflectionClass;
 use ReflectionProperty;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -26,22 +27,43 @@ class Validator
     public function validate(mixed $entity, array $groups = []): array
     {
         $errors = [];
-        $reflection = new ReflectionClass($entity);
+
+        if ($entity instanceof Proxy) {
+            $entity->__load();
+        }
+
+        $reflection = new ReflectionClass($entity instanceof Proxy ? current(class_parents($entity)) : $entity);
 
         foreach ($reflection->getProperties() as $property) {
-            $this->validateProperty($entity, $property, $errors);
+            $this->validateProperty($entity, $property, $errors, $groups);
         }
 
         return $errors;
     }
 
-    private function validateProperty(object $entity, ReflectionProperty $property, array &$errors): void
+    private function validateProperty(
+        object             $entity,
+        ReflectionProperty $property,
+        array              &$errors,
+        array              $groups,
+
+    ): void
     {
         $annotations = $this->annotationReader->getPropertyAnnotations($property);
         foreach ($annotations as $annotation) {
             if ($annotation instanceof BaseValidationAnnotation) {
+
+                if (!empty($groups) && empty(array_intersect($groups, $annotation->groups))) {
+                    continue;
+                }
+
                 $handler = $this->getHandler($annotation->getHandler());
-                if (!$handler->validate($property->name, $property->getValue($entity), $entity::class)) {
+                if (!$handler->validate(
+                    $property->name,
+                    $property->getValue($entity),
+                    $entity::class,
+                    $annotation
+                )) {
                     $errors[$property->name] = $annotation->getMessage();
                 }
             }

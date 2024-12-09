@@ -8,5 +8,5 @@ namespace Security\Annotation;
  */
 class RoleGuard
 {
-    public string $role;
+    public array $roles = [];
 }

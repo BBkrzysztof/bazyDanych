@@ -49,3 +49,7 @@ services:
   App\Exception\Handler\UnauthorizedHandler:
     tags:
       - { name: kernel.event_listener, event: kernel.exception }
+
+  App\Exception\Handler\AccessDeniedHandler:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception }

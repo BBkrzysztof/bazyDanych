@@ -2,14 +2,11 @@
 
 namespace Security\EventListener;
 
-use App\Exception\JsonBadRequestException;
 use Doctrine\Common\Annotations\Reader;
 use Security\Annotation\Authenticated;
-use Security\Annotation\RequiredFields;
 use Security\Service\Security;
 use Symfony\Component\HttpKernel\Controller\ErrorController;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthenticatedListener

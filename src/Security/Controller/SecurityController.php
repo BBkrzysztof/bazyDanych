@@ -2,10 +2,7 @@
 
 namespace Security\Controller;
 
-use App\Exception\JsonBadRequestException;
-use App\Validator\Validator;
 use Security\Service\JwtService;
-use App\Serializer\EntitySerializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Security\Entity\User;
 use Security\Service\Security;
@@ -33,33 +30,7 @@ class SecurityController extends AbstractController
         $this->jwtService = $jwtService;
     }
 
-    /**
-     * @Route("/register", methods={"POST"})
-     */
-    public function register(
-        Request                $request,
-        EntitySerializer       $entitySerializer,
-        EntityManagerInterface $entityManager,
-        Validator              $validator
-    ): JsonResponse
-    {
-        /** @var User $user */
-        $user = $entitySerializer->deserialize($request, User::class);
 
-        $errors = $validator->validate($user);
-
-        if($errors){
-            throw new JsonBadRequestException($errors);
-        }
-
-        $entityManager->persist($user);
-        $entityManager->flush();
-
-        return new JsonResponse([
-            'id' => $user->getId(),
-            'email' => $user->getEmail(),
-        ], Response::HTTP_CREATED);
-    }
 
     /**
      * @Route("/login", methods={"POST"})

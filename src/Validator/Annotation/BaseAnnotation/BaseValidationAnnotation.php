@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityManagerInterface;
 
 abstract class BaseValidationAnnotation
 {
+    public array $groups = [];
+
     public abstract function getHandler(): string;
 
     public abstract function getMessage(): string;

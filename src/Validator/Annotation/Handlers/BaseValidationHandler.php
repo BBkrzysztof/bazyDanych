@@ -2,6 +2,7 @@
 
 namespace App\Validator\Annotation\Handlers;
 
+use App\Validator\Annotation\BaseAnnotation\BaseValidationAnnotation;
 use Doctrine\ORM\EntityManagerInterface;
 
 abstract class BaseValidationHandler
@@ -14,5 +15,10 @@ abstract class BaseValidationHandler
         $this->entityManager = $entityManager;
     }
 
-    public abstract function validate(string $name, mixed $value, string $entityClass): bool;
+    public abstract function validate(
+        string                   $name,
+        mixed                    $value,
+        string                   $entityClass,
+        BaseValidationAnnotation $annotation
+    ): bool;
 }
