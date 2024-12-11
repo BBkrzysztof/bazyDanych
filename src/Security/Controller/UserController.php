@@ -2,10 +2,9 @@
 
 namespace Security\Controller;
 
+use App\Controller\BaseController\BaseController;
 use App\Exception\JsonBadRequestException;
-use App\Serializer\EntitySerializer;
-use App\Validator\Validator;
-use Doctrine\ORM\EntityManagerInterface;
+
 use Security\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,23 +18,8 @@ use Security\Annotation\RoleGuard;
 /**
  * @Route("/api")
  */
-class UserController extends AbstractController
+class UserController extends BaseController
 {
-
-    private EntitySerializer $entitySerializer;
-    private Validator $validator;
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(
-        EntitySerializer       $entitySerializer,
-        Validator              $validator,
-        EntityManagerInterface $entityManager
-    )
-    {
-        $this->entitySerializer = $entitySerializer;
-        $this->entityManager = $entityManager;
-        $this->validator = $validator;
-    }
 
     /**
      * @Route("/register", methods={"POST"})

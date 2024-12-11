@@ -52,7 +52,11 @@ class User
     private ?\DateTimeInterface $deletedAt = null;
 
     /**
-     * @ORM\OneToMany(targetEntity="Token", mappedBy="User")
+     * @ORM\OneToMany(
+     *     targetEntity="Security\Entity\Token",
+     *     mappedBy="user",
+     *     fetch="EAGER"
+     * )
      */
     private Collection $tokens;
 

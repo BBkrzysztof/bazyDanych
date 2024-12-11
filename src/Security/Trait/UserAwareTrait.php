@@ -11,8 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait UserAwareTrait
 {
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="products", cascade={"remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="Security\Entity\User")
      */
     private User $user;
 
