@@ -5,15 +5,19 @@ namespace Security\Controller;
 use App\Controller\BaseController\BaseController;
 use App\Exception\JsonBadRequestException;
 
+use App\Paginator\Paginator;
 use Security\Entity\User;
+use Security\Enum\UserRolesEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Security\Annotation\RequiredFields;
 use Security\Annotation\Authenticated;
 use Security\Annotation\RoleGuard;
+use App\Paginator\Annotation\Pagination;
 
 /**
  * @Route("/api")
@@ -47,42 +51,65 @@ class UserController extends BaseController
 
     /**
      * @Authenticated
+     * @Pagination
      * @RoleGuard(roles={"RoleAdmin"})
-     * @Route("/user/list", methods={"GET"})
+     * @Route("/user", methods={"GET"})
      */
-    public function listUser(): JsonResponse
+    public function listUser(Paginator $paginator): JsonResponse
     {
-        return new JsonResponse();
+        return $paginator->paginate(User::class);
+    }
+
+    /**
+     * @Authenticated
+     * @RequiredFields(fields={"email"})
+     * @Route("/user/{id}", methods={"PUT"})
+     */
+    public function updateUser(Request $request, $id): JsonResponse
+    {
+        $this->validateIfActionIsPerformedOnMe($id);
+
+        $updatedUser = $this->entitySerializer->deserialize($request, $id);
+
+        $errors = $this->validator->validate($updatedUser, ['update']);
+
+        if ($errors) {
+            throw new JsonBadRequestException($errors);
+        }
+
+        $this->entityManager->persist($updatedUser);
+        $this->entityManager->flush();
+
+        return new JsonResponse($updatedUser);
     }
 
     /**
      * @Authenticated
      * @RequiredFields(fields={})
-     * @Route("/user/edit/{id}", methods={"PUT"})
+     * @Route("/user/{id}", methods={"DELETE"})
      */
-    public function editUser(): JsonResponse
+    public function deleteUser($id): JsonResponse
     {
-        //@todo add edit user
-        return new JsonResponse();
-    }
+        $this->validateIfActionIsPerformedOnMe($id);
 
-    /**
-     * @Authenticated
-     * @RoleGuard(roles={"RoleAdmin"})
-     * @RequiredFields(fields={})
-     * @Route("/user/delete/{id}", methods={"DELETE"})
-     */
-    public function deleteUser(): JsonResponse
-    {
+        /** @var User $user */
+        $user = $this->entityManager->getRepository(User::class)
+            ->findOneBy(['id' => $id]);
+
+        $user->setDeletedAt(new \DateTime());
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
         //@todo add delete user
-        return new JsonResponse();
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 
     /**
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin"})
      * @RequiredFields(fields={"role"})
-     * @Route("/user/change-role/{id}", methods={"POST"})
+     * @Route("/user/change-role/{id}", methods={"PUT"})
      */
     public function changeRole(Request $request, $id): JsonResponse
     {
@@ -99,5 +126,21 @@ class UserController extends BaseController
         $this->entityManager->flush();
 
         return new JsonResponse(['data' => 'Role updated']);
+    }
+
+    /**
+     * check if user is performing action on himself, admin can perform action on other
+     * @param string $id
+     * @return void
+     */
+    private function validateIfActionIsPerformedOnMe(string $id): void
+    {
+        if ($this->security->getUser()->getId() === $id) {
+            return; //action performed on himself
+        }
+
+        if (!$this->security->getUser()->getRole() !== UserRolesEnum::Admin->value) {
+            throw new AccessDeniedHttpException();
+        }
     }
 }

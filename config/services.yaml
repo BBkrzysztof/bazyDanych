@@ -36,7 +36,7 @@ services:
 
   App\EventListener\JsonRequestTransformerListener:
     tags:
-      - { name: "kernel.event_listener", event: "kernel.request",method: "onKernelRequest", priority: "100" }
+      - { name: "kernel.event_listener", event: "kernel.request",method: "onKernelRequest", priority: 1000 }
 
   App\Exception\Handler\BadRequestHandler:
     tags:
@@ -53,3 +53,7 @@ services:
   App\Exception\Handler\AccessDeniedHandler:
     tags:
       - { name: kernel.event_listener, event: kernel.exception }
+
+  App\Paginator\EventListener\PaginationListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, priority: 2 }

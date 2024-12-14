@@ -4,6 +4,7 @@ namespace Security\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use App\Validator\Annotation\Unique;
+use App\Validator\Annotation\Email;
 use App\Validator\Annotation\OneOf;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
@@ -13,7 +14,7 @@ use Security\Enum\UserRolesEnum;
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User
+class User implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -24,7 +25,8 @@ class User
     private string $id;
 
     /**
-     * @Unique(groups={"create"})
+     * @Unique(groups={"create", "update"})
+     * @Email(groups={"create", "update"})
      * @ORM\Column(type="string", unique=true, length=255)
      */
     private string $email;
@@ -129,4 +131,14 @@ class User
     {
         return $this->tokens;
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'email' => $this->email,
+            'role' => $this->role
+        ];
+    }
+
 }

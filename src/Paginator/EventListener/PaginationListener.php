@@ -1,24 +1,33 @@
 <?php
 
-namespace Security\EventListener;
+namespace App\Paginator\EventListener;
 
 use App\Paginator\Annotation\Pagination;
+use App\Paginator\Paginator;
 use Doctrine\Common\Annotations\Reader;
-use Security\Annotation\Authenticated;
 use Security\Service\Security;
 use Symfony\Component\HttpKernel\Controller\ErrorController;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
-class AuthenticatedListener
+
+class PaginationListener
 {
+
     private Reader $annotationReader;
     private Security $security;
+    private Paginator $paginator;
 
-    public function __construct(Reader $annotationReader, Security $security)
+
+    public function __construct(
+        Reader    $annotationReader,
+        Security  $security,
+        Paginator $paginator
+    )
     {
         $this->annotationReader = $annotationReader;
         $this->security = $security;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -36,11 +45,13 @@ class AuthenticatedListener
         $annotations = $this->annotationReader->getMethodAnnotations(new \ReflectionMethod($controller, $method));
 
         foreach ($annotations as $annotation) {
-            if ($annotation instanceof Authenticated) {
-                if (!$this->security->getUser() || !$this->security->getToken()) {
-                    throw new UnauthorizedHttpException('', 'Authentication required');
-                }
+            if ($annotation instanceof Pagination) {
+                $request = $event->getRequest();
+                $currentPage = (int)$request->query->get('page') ?: 1;
+                $limit = (int)$request->query->get('limit') ?: 25;
+                $this->paginator->setPagination($currentPage, $limit);
             }
         }
     }
+
 }

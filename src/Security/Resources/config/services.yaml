@@ -10,11 +10,11 @@ services:
 
   Security\EventListener\AuthenticatedListener:
     tags:
-      - { name: kernel.event_listener, event: kernel.controller, priority: 100 }
+      - { name: kernel.event_listener, event: kernel.controller, priority: 998 }
 
   Security\EventListener\RoleGuardListener:
     tags:
-      - { name: kernel.event_listener, event: kernel.controller, priority: 99 }
+      - { name: kernel.event_listener, event: kernel.controller, priority: 997 }
 
   Security\EventListener\JwtRequestListener:
     tags:
