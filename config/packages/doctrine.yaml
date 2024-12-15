@@ -27,6 +27,10 @@ doctrine:
                 dir: '/Entity'
                 prefix: 'Security\Entity'
                 alias: SecurityBundle
+        filters:
+            deleted_at_filter:
+                class: App\Doctrine\DeletedAtFilter
+                enabled: true
 
 when@test:
     doctrine:

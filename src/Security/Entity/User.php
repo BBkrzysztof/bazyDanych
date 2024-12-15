@@ -2,6 +2,8 @@
 
 namespace Security\Entity;
 
+use App\Interface\SoftDeleteEntityInterface;
+use App\Trait\SoftDeleteEntityTrait;
 use Doctrine\Common\Collections\Collection;
 use App\Validator\Annotation\Unique;
 use App\Validator\Annotation\Email;
@@ -14,8 +16,10 @@ use Security\Enum\UserRolesEnum;
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User implements \JsonSerializable
+class User implements \JsonSerializable, SoftDeleteEntityInterface
 {
+    use SoftDeleteEntityTrait;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="guid", unique=true)
@@ -47,11 +51,6 @@ class User implements \JsonSerializable
      * @ORM\Column(type="string", length=20)
      */
     private string $resetPasswordToken = '';
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private ?\DateTimeInterface $deletedAt = null;
 
     /**
      * @ORM\OneToMany(
@@ -112,15 +111,7 @@ class User implements \JsonSerializable
         return $this->resetPasswordToken;
     }
 
-    public function setDeletedAt(\DateTimeInterface $deletedAt): void
-    {
-        $this->deletedAt = $deletedAt;
-    }
 
-    public function getDeletedAt(): ?\DateTimeInterface
-    {
-        return $this->deletedAt;
-    }
 
     public function setTokens(Collection $tokens): void
     {

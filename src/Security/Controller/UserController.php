@@ -63,13 +63,14 @@ class UserController extends BaseController
     /**
      * @Authenticated
      * @RequiredFields(fields={"email"})
-     * @Route("/user/{id}", methods={"PUT"})
+     * @Route("/user/{userId}", methods={"PUT"})
      */
-    public function updateUser(Request $request, $id): JsonResponse
+    public function updateUser(Request $request): JsonResponse
     {
-        $this->validateIfActionIsPerformedOnMe($id);
+        $id = $request->get('userId');
 
-        $updatedUser = $this->entitySerializer->deserialize($request, $id);
+        $updatedUser = $this->entitySerializer->deserialize($request, User::class, $id);
+        $this->validateIfActionIsPerformedOnMe($id);
 
         $errors = $this->validator->validate($updatedUser, ['update']);
 
@@ -98,10 +99,13 @@ class UserController extends BaseController
 
         $user->setDeletedAt(new \DateTime());
 
+        foreach ($user->getTokens() as $token) {
+            $this->entityManager->remove($token);
+        }
+
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        //@todo add delete user
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 
@@ -139,8 +143,10 @@ class UserController extends BaseController
             return; //action performed on himself
         }
 
-        if (!$this->security->getUser()->getRole() !== UserRolesEnum::Admin->value) {
-            throw new AccessDeniedHttpException();
+        if (!$this->security->getUser()->getRole() === UserRolesEnum::Admin->value) {
+            return; //action performed by admin
         }
+
+        throw new AccessDeniedHttpException();
     }
 }

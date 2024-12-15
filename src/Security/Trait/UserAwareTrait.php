@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait UserAwareTrait
 {
     /**
-     * @ORM\ManyToOne(targetEntity="Security\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Security\Entity\User", fetch="EAGER")
      */
     private User $user;
 
