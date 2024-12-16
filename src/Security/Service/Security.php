@@ -4,6 +4,7 @@ namespace Security\Service;
 
 use Security\Entity\Token;
 use Security\Entity\User;
+use Security\Enum\UserRolesEnum;
 
 class Security
 {
@@ -28,5 +29,10 @@ class Security
     public function setToken(Token $token): void
     {
         $this->token = $token;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->getUser()->getRole() === UserRolesEnum::Admin->value;
     }
 }

@@ -34,8 +34,59 @@ class Tag implements \JsonSerializable, CreatedAtEntityInterface
      */
     private Collection $tickets;
 
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    /**
+     * @param Collection $tickets
+     */
+    public function setTickets(Collection $tickets): void
+    {
+        $this->tickets = $tickets;
+    }
+
     public function jsonSerialize(): array
     {
-        return [];
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName()
+        ];
     }
 }

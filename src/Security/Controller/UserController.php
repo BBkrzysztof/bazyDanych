@@ -63,7 +63,7 @@ class UserController extends BaseController
     /**
      * @Authenticated
      * @RequiredFields(fields={"email"})
-     * @Route("/user/{userId}", methods={"PUT"})
+     * @Route("/user/{userId}", methods={"PATCH"})
      */
     public function updateUser(Request $request): JsonResponse
     {
@@ -113,7 +113,7 @@ class UserController extends BaseController
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin"})
      * @RequiredFields(fields={"role"})
-     * @Route("/user/change-role/{id}", methods={"PUT"})
+     * @Route("/user/change-role/{id}", methods={"PATCH"})
      */
     public function changeRole(Request $request, $id): JsonResponse
     {
