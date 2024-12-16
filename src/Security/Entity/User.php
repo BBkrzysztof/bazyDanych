@@ -36,7 +36,6 @@ class User implements \JsonSerializable, SoftDeleteEntityInterface
     private string $email;
 
     /**
-     *
      * @ORM\Column(type="string", length=255)
      */
     private string $password;
@@ -60,6 +59,42 @@ class User implements \JsonSerializable, SoftDeleteEntityInterface
      * )
      */
     private Collection $tokens;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\WorkTime",
+     *     mappedBy="employee",
+     *     fetch="EAGER",
+     * )
+     */
+    private Collection $workTime;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Ticket",
+     *     mappedBy="author",
+     *     fetch="EAGER",
+     * )
+     */
+    private Collection $createdTicket;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Ticket",
+     *     mappedBy="worker",
+     *     fetch="EAGER",
+     * )
+     */
+    private Collection $workingOnTickets;
+
+    /**
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Log",
+     *     mappedBy="user",
+     *     fetch="EAGER",
+     * )
+     */
+    private Collection $logs;
 
     public function setId(string $id): void
     {
@@ -110,7 +145,6 @@ class User implements \JsonSerializable, SoftDeleteEntityInterface
     {
         return $this->resetPasswordToken;
     }
-
 
 
     public function setTokens(Collection $tokens): void
