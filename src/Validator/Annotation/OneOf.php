@@ -22,8 +22,6 @@ class OneOf extends BaseValidationAnnotation
     {
         $cases = array_map(fn($case) => $case->value, $this->enumPath::cases());
         $cases = implode(', ', $cases);
-
-        //todo add message
         return "Must be one of: {$cases}";
     }
 }

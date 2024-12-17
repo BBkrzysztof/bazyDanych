@@ -25,14 +25,17 @@ class WorkTimeController extends BaseController
     /**
      * @Authenticated
      * @Pagination
-     * @RoleGuard(roles={"RoleAdmin","RoleEmployee"})
+     * @RoleGuard(roles={"RoleAdmin", "RoleEmployee"})
      * @Route("/", methods={"GET"})
      */
     public function getAction(Paginator $paginator): JsonResponse
     {
         if (!$this->security->isAdmin()) {
-            //@todo add RoleEmployee filter
-            //@todo enable filter
+            return $paginator->paginate(
+                WorkTime::class,
+                'e.employee = :param',
+                $this->security->getUser()->getId()
+            );
         }
         return $paginator->paginate(WorkTime::class);
     }
@@ -52,8 +55,7 @@ class WorkTimeController extends BaseController
         );
         $workTime->setEmployee($this->security->getUser());
 
-        //@todo add validation rules (date >= now and time <= 24h and date regex)
-        $errors = $this->validator->validate($workTime, ['create']);
+        $errors = $this->validator->validate($workTime);
 
         if ($errors) {
             throw new JsonBadRequestException($errors);
@@ -68,7 +70,7 @@ class WorkTimeController extends BaseController
     /**
      * @Authenticated
      * @RequiredFields(fields={"time", "ticket", "createdAt"})
-     * @RoleGuard(roles={"RoleAdmin","RoleEmployee"})
+     * @RoleGuard(roles={"RoleAdmin", "RoleEmployee"})
      * @Route("/{id}", methods={"PUT"})
      */
     public function updateAction(Request $request, $id): JsonResponse
@@ -80,8 +82,14 @@ class WorkTimeController extends BaseController
             $id
         );
 
-        //@todo add validation rules (date >= now and time <= 24h and date regex)
-        $errors = $this->validator->validate($workTime, ['update']);
+        if (
+            !$this->security->isAdmin()
+            && $workTime->getEmployee()->getId() !== $this->security->getUser()->getId()
+        ) {
+            throw new AccessDeniedHttpException("You dont have permissions");
+        }
+
+        $errors = $this->validator->validate($workTime);
 
         if ($errors) {
             throw new JsonBadRequestException($errors);
@@ -112,7 +120,7 @@ class WorkTimeController extends BaseController
             !$this->security->isAdmin()
             && $workTime->getEmployee()->getId() !== $this->security->getUser()->getId()
         ) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedHttpException("You dont have permissions");
         }
 
         $this->entityManager->remove($workTime);

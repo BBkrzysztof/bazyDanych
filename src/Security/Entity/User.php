@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use App\Validator\Annotation\Unique;
 use App\Validator\Annotation\Email;
 use App\Validator\Annotation\OneOf;
+use App\Validator\Annotation\RoleValidator;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 use Security\Enum\UserRolesEnum;

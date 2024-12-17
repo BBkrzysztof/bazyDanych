@@ -2,12 +2,9 @@
 
 namespace App\Validator\Annotation\Handlers;
 
-use App\Exception\JsonBadRequestException;
 use App\Validator\Annotation\BaseAnnotation\BaseValidationAnnotation;
-use Security\Entity\User;
-use Security\Enum\UserRolesEnum;
 
-class RoleValidatorHandler extends BaseValidationHandler
+class HoursInDayHandler extends BaseValidationHandler
 {
 
     public function validate(
@@ -17,7 +14,6 @@ class RoleValidatorHandler extends BaseValidationHandler
         BaseValidationAnnotation $annotation
     ): bool
     {
-        /** @var User $value */
-        return $value->getRole() !== UserRolesEnum::User->value;
+        return $value <= 24;
     }
 }

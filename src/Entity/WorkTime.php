@@ -6,7 +6,9 @@ use App\Interface\CreatedAtEntityInterface;
 use App\Trait\CreatedAtEntityTrait;
 use Security\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\VarDumper\Cloner\Data;
+use App\Validator\Annotation\RoleValidator;
+use App\Validator\Annotation\BlockFutureDate;
+use App\Validator\Annotation\HoursInDay;
 
 /**
  * @ORM\Entity
@@ -14,8 +16,6 @@ use Symfony\Component\VarDumper\Cloner\Data;
  */
 class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
 {
-    use CreatedAtEntityTrait;
-
     /**
      * @ORM\Id
      * @ORM\Column(type="guid", unique=true)
@@ -25,6 +25,7 @@ class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
     private string $id;
 
     /**
+     * @HoursInDay
      * @ORM\Column(type="integer")
      */
     private int $time;
@@ -45,6 +46,12 @@ class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
      * )
      */
     private User $employee;
+
+    /**
+     * @BlockFutureDate
+     * @ORM\Column(type="date")
+     */
+    private \DateTimeInterface $createdAt;
 
     /**
      * @return string
@@ -110,8 +117,33 @@ class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
         $this->employee = $employee;
     }
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
     public function jsonSerialize(): array
     {
-        return [];
+        return [
+            'id' => $this->getId(),
+            'hours' => $this->getTime(),
+            'ticket' => $this->getTicket(),
+            'employee' => [
+                'id' => $this->employee->getId(),
+                'email' => $this->employee->getEmail(),
+                'role' => $this->employee->getRole(),
+            ],
+            'createdAt' => $this->getCreatedAt(),
+        ];
     }
 }

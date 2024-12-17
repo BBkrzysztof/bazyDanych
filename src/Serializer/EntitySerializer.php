@@ -51,7 +51,7 @@ class EntitySerializer
             }
 
             if ($classMetadata->hasAssociation($key)) {
-                if(is_string($value)){
+                if (is_string($value)) {
                     throw new BadRequestHttpException('Invalid JSON data.');
                 }
 
@@ -65,6 +65,17 @@ class EntitySerializer
                 continue;
 
             }
+            if ($classMetadata->getFieldMapping($key)['type'] === "date") {
+                $date = \DateTime::createFromFormat('Y-m-d', $value);
+                if ($date === false) {
+                    $errors[$key] = 'Invalid date format';
+                    continue;
+                }
+
+                $entity->$setterMethod($date);
+                continue;
+            }
+
             $entity->$setterMethod($value);
         }
 

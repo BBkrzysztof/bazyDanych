@@ -12,6 +12,7 @@ class Paginator
     private int $current = 1;
     private int $maxPages = 1;
     private int $limit = 25;
+    private int $total = 1;
 
     private EntityManagerInterface $entityManager;
 
@@ -26,18 +27,35 @@ class Paginator
         $this->limit = $limit;
     }
 
-    public function paginate(string $entity): JsonResponse
+    public function paginate(
+        string  $entity,
+        ?string $andWhere = null,
+        ?string $andWhereParam = null
+    ): JsonResponse
     {
-        $total = (int)$this->createQueryBuilder()
+        $query = $this->createQueryBuilder()
             ->select('count(e.id)')
-            ->from($entity, 'e')
-            ->getQuery()
+            ->from($entity, 'e');
+
+        if ($andWhere) {
+            $query->andWhere($andWhere)
+                ->setParameter('param', $andWhereParam);
+        }
+
+        $total = (int)$query->getQuery()
             ->getSingleScalarResult();
 
         $this->maxPages = ceil($total / $this->limit);
-        $data = $this->createQueryBuilder()->select('e')
-            ->from($entity, 'e')
-            ->setFirstResult(($this->current - 1) * $this->limit)
+        $this->total = $total;
+        $query = $this->createQueryBuilder()->select('e')
+            ->from($entity, 'e');
+
+        if ($andWhere) {
+            $query->andWhere($andWhere)
+                ->setParameter('param', $andWhereParam);
+        }
+
+        $data = $query->setFirstResult(($this->current - 1) * $this->limit)
             ->setMaxResults($this->limit)
             ->getQuery()->getResult();
 
@@ -55,6 +73,7 @@ class Paginator
         return new JsonResponse([
             'data' => $data,
             'current_page' => $this->current,
+            'total' => $this->total,
             'pages' => $this->maxPages,
             'limit' => $this->limit
         ], Response::HTTP_OK);

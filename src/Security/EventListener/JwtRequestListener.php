@@ -50,7 +50,6 @@ class JwtRequestListener
         $data = $this->jwtService->validateJWT($token);
 
         if (!$data) {
-            //@todo add error handler
             throw new UnauthorizedHttpException('', 'Invalid jwt token');
         }
 

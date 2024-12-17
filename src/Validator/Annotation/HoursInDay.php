@@ -3,22 +3,23 @@
 namespace App\Validator\Annotation;
 
 use App\Validator\Annotation\BaseAnnotation\BaseValidationAnnotation;
-use App\Validator\Annotation\Handlers\RoleValidatorHandler;
+use App\Validator\Annotation\Handlers\HoursInDayHandler;
+
 
 /**
  * @Annotation
  * @Target("PROPERTY")
  */
-class RoleValidator extends BaseValidationAnnotation
+class HoursInDay extends BaseValidationAnnotation
 {
 
     public function getHandler(): string
     {
-        return RoleValidatorHandler::class;
+        return HoursInDayHandler::class;
     }
 
     public function getMessage(): string
     {
-        return 'User must have role Employee or Admin';
+        return 'Day have only 24 hours';
     }
 }

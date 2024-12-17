@@ -3,22 +3,22 @@
 namespace App\Validator\Annotation;
 
 use App\Validator\Annotation\BaseAnnotation\BaseValidationAnnotation;
-use App\Validator\Annotation\Handlers\RoleValidatorHandler;
+use App\Validator\Annotation\Handlers\BlockFutureDateHandler;
 
 /**
  * @Annotation
  * @Target("PROPERTY")
  */
-class RoleValidator extends BaseValidationAnnotation
+class BlockFutureDate extends BaseValidationAnnotation
 {
 
     public function getHandler(): string
     {
-        return RoleValidatorHandler::class;
+        return BlockFutureDateHandler::class;
     }
 
     public function getMessage(): string
     {
-        return 'User must have role Employee or Admin';
+        return 'Date cant be in future';
     }
 }

@@ -28,8 +28,6 @@ class TicketController extends BaseController
      */
     public function getAction(Paginator $paginator): JsonResponse
     {
-        //@todo add list ticket logic
-
         return $paginator->paginate(Ticket::class);
     }
 
