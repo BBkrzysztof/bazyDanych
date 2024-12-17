@@ -38,8 +38,88 @@ class Comment implements \JsonSerializable, CreatedAtEntityInterface
      */
     private Ticket $ticket;
 
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @return User
+     */
+    public function getAuthor(): User
+    {
+        return $this->author;
+    }
+
+    /**
+     * @param User $author
+     */
+    public function setAuthor(User $author): void
+    {
+        $this->author = $author;
+    }
+
+    /**
+     * @return Ticket
+     */
+    public function getTicket(): Ticket
+    {
+        return $this->ticket;
+    }
+
+    /**
+     * @param Ticket $ticket
+     */
+    public function setTicket(Ticket $ticket): void
+    {
+        $this->ticket = $ticket;
+    }
+
+
     public function jsonSerialize(): array
     {
-        return [];
+        return [
+            'id' => $this->getId(),
+            'content' => $this->getContent(),
+            'author' => [
+                'email' => $this->getAuthor()->getEmail(),
+                'role' => $this->getAuthor()->getRole(),
+            ],
+            'ticket' => $this->getTicket()->getId(),
+            'createdAt' => $this->getCreatedAt()
+        ];
     }
 }

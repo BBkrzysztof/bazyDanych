@@ -68,7 +68,10 @@ class TicketController extends BaseController
             $id
         );
 
-        if (!$this->security->isAdmin() && $ticket->getAuthor()->getId() !== $this->security->getUser()->getId()) {
+        if (
+            !$this->security->isAdmin()
+            && $ticket->getAuthor()->getId() !== $this->security->getUser()->getId()
+        ) {
             throw new AccessDeniedHttpException();
         }
 
@@ -135,10 +138,10 @@ class TicketController extends BaseController
             $id
         );
 
-        if ($ticket->getWorker()->getRole() === UserRolesEnum::User->value) {
-            throw new JsonBadRequestException([
-                'worker' => 'user must have role Employee or Admin'
-            ]);
+        $errors = $this->validator->validate($ticket, ['worker-assign']);
+
+        if ($errors) {
+            throw new JsonBadRequestException($errors);
         }
 
         $ticket->setUpdatedAt(new \DateTime());

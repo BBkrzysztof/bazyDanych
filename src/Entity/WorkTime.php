@@ -6,6 +6,7 @@ use App\Interface\CreatedAtEntityInterface;
 use App\Trait\CreatedAtEntityTrait;
 use Security\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 /**
  * @ORM\Entity
@@ -37,12 +38,77 @@ class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
     private Ticket $ticket;
 
     /**
+     * @RoleValidator()
      * @ORM\ManyToOne(
      *     targetEntity="Security\Entity\User",
      *     fetch="EAGER"
      * )
      */
     private User $employee;
+
+    /**
+     * @return string
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param string $id
+     */
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTime(): int
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param int $time
+     */
+    public function setTime(int $time): void
+    {
+        $this->time = $time;
+    }
+
+    /**
+     * @return Ticket
+     */
+    public function getTicket(): Ticket
+    {
+        return $this->ticket;
+    }
+
+    /**
+     * @param Ticket $ticket
+     */
+    public function setTicket(Ticket $ticket): void
+    {
+        $this->ticket = $ticket;
+    }
+
+    /**
+     * @return User
+     */
+    public function getEmployee(): User
+    {
+        return $this->employee;
+    }
+
+    /**
+     * @param User $employee
+     */
+    public function setEmployee(User $employee): void
+    {
+        $this->employee = $employee;
+    }
 
     public function jsonSerialize(): array
     {

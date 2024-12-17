@@ -34,6 +34,11 @@ class Tag implements \JsonSerializable, CreatedAtEntityInterface
      */
     private Collection $tickets;
 
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
+
     /**
      * @return string
      */

@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Security\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator\Annotation\OneOf;
+use App\Validator\Annotation\RoleValidator;
 
 /**
  * @ORM\Entity
@@ -62,6 +63,7 @@ class Ticket implements \JsonSerializable, CreatedAtEntityInterface
     private User $author;
 
     /**
+     * @RoleValidator(groups={"worker-assign"})
      * @ORM\ManyToOne(
      *     targetEntity="Security\Entity\User",
      *     fetch="EAGER"
