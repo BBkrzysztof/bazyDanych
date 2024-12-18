@@ -25,7 +25,10 @@ use App\Logger\LoggerAnnotation;
 class TicketController extends BaseController
 {
     /**
-     * @Pagination
+     * @Pagination(
+     *     likeFilters={"id", "title", "content", "status"},
+     *     eqFilters={"author", "worker", "ticket"}
+     * )
      * @Route("/", methods={"GET"})
      */
     public function getAction(Paginator $paginator): JsonResponse

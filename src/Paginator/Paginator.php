@@ -16,6 +16,9 @@ class Paginator
 
     private EntityManagerInterface $entityManager;
 
+    private array $likeFilters = [];
+    private array $eqFilters = [];
+
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -27,41 +30,93 @@ class Paginator
         $this->limit = $limit;
     }
 
-    public function paginate(
-        string  $entity,
-        ?string $andWhere = null,
-        ?string $andWhereParam = null
-    ): JsonResponse
+    /**
+     * @param array $likeFilters
+     */
+    public function setLikeFilters(array $likeFilters): void
     {
-        $query = $this->createQueryBuilder()
-            ->select('count(e.id)')
+        $this->likeFilters = $likeFilters;
+    }
+
+    /**
+     * @param array $eqFilters
+     */
+    public function setEqFilters(array $eqFilters): void
+    {
+        $this->eqFilters = $eqFilters;
+    }
+
+
+    public function setupPaginate(string $entity): array
+    {
+        $countQuery = $this->createQueryBuilder()
+            ->select('count(e)')
             ->from($entity, 'e');
 
-        if ($andWhere) {
-            $query->andWhere($andWhere)
-                ->setParameter('param', $andWhereParam);
+        $entityQuery = $this->createQueryBuilder()
+            ->select('e')
+            ->from($entity, 'e');
+
+        return [$countQuery, $entityQuery];
+    }
+
+    public function paginate(
+        string        $entity,
+        ?QueryBuilder $countQuery = null,
+        ?QueryBuilder $entityQuery = null,
+    ): JsonResponse
+    {
+        if (!$countQuery) {
+            [$countQuery,] = $this->setupPaginate($entity);
         }
 
-        $total = (int)$query->getQuery()
+        if (!$entityQuery) {
+            [, $entityQuery] = $this->setupPaginate($entity);
+        }
+
+        [$countQuery, $entityQuery] = $this->applyFilters($countQuery, $entityQuery);
+
+        $total = (int)$countQuery->getQuery()
             ->getSingleScalarResult();
 
         $this->maxPages = ceil($total / $this->limit);
         $this->total = $total;
-        $query = $this->createQueryBuilder()->select('e')
-            ->from($entity, 'e');
 
-        if ($andWhere) {
-            $query->andWhere($andWhere)
-                ->setParameter('param', $andWhereParam);
-        }
-
-        $data = $query->setFirstResult(($this->current - 1) * $this->limit)
+        $data = $entityQuery->setFirstResult(($this->current - 1) * $this->limit)
             ->setMaxResults($this->limit)
             ->getQuery()->getResult();
 
         return $this->paginationResponse($data);
     }
 
+    private function applyFilters(
+        QueryBuilder &$countQuery,
+        QueryBuilder &$entityQuery
+    ): array
+    {
+
+        foreach ($this->likeFilters as $field => $value) {
+            $countQuery->andWhere("e.{$field} LIKE :param_{$field}")
+                ->setParameter("param_{$field}", "%$value%");
+
+
+            $entityQuery->andWhere("e.{$field} LIKE :param_{$field}")
+                ->setParameter("param_{$field}", "%$value%");
+
+        }
+
+        foreach ($this->eqFilters as $field => $value) {
+            $countQuery->andWhere("e.{$field} = :param_{$field}")
+                ->setParameter("param_{$field}", "$value");
+
+            $entityQuery->andWhere("e.{$field} = :param_{$field}")
+                ->setParameter("param_{$field}", "$value");
+
+        }
+
+
+        return [$countQuery, $entityQuery];
+    }
 
     private function createQueryBuilder(): QueryBuilder
     {

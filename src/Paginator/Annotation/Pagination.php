@@ -10,5 +10,6 @@ use Doctrine\Common\Annotations\Annotation\Target;
  */
 class Pagination
 {
-
+    public array $likeFilters = [];
+    public array $eqFilters = [];
 }

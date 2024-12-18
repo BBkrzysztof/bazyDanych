@@ -26,17 +26,26 @@ class WorkTimeController extends BaseController
 {
     /**
      * @Authenticated
-     * @Pagination
+     * @Pagination(likeFilters={"id"}, eqFilters={"ticket", "employee", "time"})
      * @RoleGuard(roles={"RoleAdmin", "RoleEmployee"})
      * @Route("/", methods={"GET"})
      */
     public function getAction(Paginator $paginator): JsonResponse
     {
+
         if (!$this->security->isAdmin()) {
+            [$countQuery, $entityQuery] = $paginator->setupPaginate(WorkTime::class);
+
+            $countQuery = $countQuery->andWhere('e.employee = :param')
+                ->setParameter('param', $this->security->getUser()->getId());
+
+            $entityQuery = $entityQuery->andWhere('e.employee = :param')
+                ->setParameter('param', $this->security->getUser()->getId());
+
             return $paginator->paginate(
                 WorkTime::class,
-                'e.employee = :param',
-                $this->security->getUser()->getId()
+                $countQuery,
+                $entityQuery
             );
         }
         return $paginator->paginate(WorkTime::class);

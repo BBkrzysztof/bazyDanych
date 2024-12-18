@@ -53,12 +53,14 @@ class UserController extends BaseController
 
     /**
      * @Authenticated
-     * @Pagination
+     * @Pagination(likeFilters={"id", "email", "role"})
      * @RoleGuard(roles={"RoleAdmin"})
      * @Route("/user", methods={"GET"})
      */
     public function listUser(Paginator $paginator): JsonResponse
     {
+
+
         return $paginator->paginate(User::class);
     }
 

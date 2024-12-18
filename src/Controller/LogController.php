@@ -19,7 +19,7 @@ class LogController extends BaseController
 {
 
     /**
-     * @Pagination
+     * @Pagination(likeFilters={"id","action"}, eqFilters={"user","ticket"})
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin"})
      * @Route("/", methods={"GET"})

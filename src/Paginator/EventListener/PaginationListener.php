@@ -50,6 +50,22 @@ class PaginationListener
                 $currentPage = (int)$request->query->get('page') ?: 1;
                 $limit = (int)$request->query->get('limit') ?: 25;
                 $this->paginator->setPagination($currentPage, $limit);
+
+                $likeFilters = [];
+                $eqFilters = [];
+
+                foreach ($annotation->likeFilters as $filter) {
+                    if (!$request->query->has($filter)) continue;
+                    $likeFilters[$filter] = $request->query->get($filter);
+                }
+
+                foreach ($annotation->eqFilters as $filter) {
+                    if (!$request->query->has($filter)) continue;
+                    $eqFilters[$filter] = $request->query->get($filter);
+                }
+
+                $this->paginator->setLikeFilters($likeFilters);
+                $this->paginator->setEqFilters($eqFilters);
             }
         }
     }

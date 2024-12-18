@@ -23,6 +23,7 @@ class TagController extends BaseController
 {
     /**
      * @Pagination
+     * @Pagination(likeFilters={"id", "name"})
      * @Route("/", methods={"GET"})
      */
     public function getAction(Paginator $paginator): JsonResponse

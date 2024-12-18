@@ -68,7 +68,6 @@ class Log implements \JsonSerializable, CreatedAtEntityInterface
         return $this->user;
     }
 
-
     public function jsonSerialize(): array
     {
         $user = $this->getUser() ? [
