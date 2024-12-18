@@ -26,6 +26,7 @@ class UserController extends BaseController
 {
 
     /**
+     * @RequiredFields(fields={"email", "password"})
      * @Route("/register", methods={"POST"})
      * @throws \ReflectionException
      */
