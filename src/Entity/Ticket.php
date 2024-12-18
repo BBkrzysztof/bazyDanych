@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Enum\TicketStatusEnum;
 use App\Interface\CreatedAtEntityInterface;
+use App\Interface\LoggerInterface;
 use App\Interface\SoftDeleteEntityInterface;
 use App\Trait\CreatedAtEntityTrait;
 use App\Trait\SoftDeleteEntityTrait;
@@ -17,7 +18,7 @@ use App\Validator\Annotation\RoleValidator;
  * @ORM\Entity
  * @ORM\Table(name="ticket")
  */
-class Ticket implements \JsonSerializable, CreatedAtEntityInterface, SoftDeleteEntityInterface
+class Ticket implements \JsonSerializable, CreatedAtEntityInterface, SoftDeleteEntityInterface, LoggerInterface
 {
     use CreatedAtEntityTrait;
     use SoftDeleteEntityTrait;
@@ -239,6 +240,17 @@ class Ticket implements \JsonSerializable, CreatedAtEntityInterface, SoftDeleteE
             'worker' => $worker,
             'createdAt' => $this->getCreatedAt(),
             'updatedAt' => $this->getUpdatedAt(),
+        ];
+    }
+
+    public function getLoggerMessages(): array
+    {
+        return [
+            'created' => 'Ticket has been created',
+            'updated' => 'Ticket has been updated',
+            'assigned' => "Ticket has been assigned to: {$this->getWorker()?->getEmail()}",
+            'statusChange' => "Ticket status has been changed to: {$this->status}",
+            'deleted' =>  "Ticket has been deleted",
         ];
     }
 }

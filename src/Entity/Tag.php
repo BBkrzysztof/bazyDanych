@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Interface\CreatedAtEntityInterface;
+use App\Interface\SoftDeleteEntityInterface;
 use App\Trait\CreatedAtEntityTrait;
+use App\Trait\SoftDeleteEntityTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,9 +13,10 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="tag")
  */
-class Tag implements \JsonSerializable, CreatedAtEntityInterface
+class Tag implements \JsonSerializable, SoftDeleteEntityInterface, CreatedAtEntityInterface
 {
     use CreatedAtEntityTrait;
+    use SoftDeleteEntityTrait;
 
     /**
      * @ORM\Id

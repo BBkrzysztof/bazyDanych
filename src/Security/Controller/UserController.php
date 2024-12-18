@@ -18,6 +18,7 @@ use Security\Annotation\RequiredFields;
 use Security\Annotation\Authenticated;
 use Security\Annotation\RoleGuard;
 use App\Paginator\Annotation\Pagination;
+use App\Logger\LoggerAnnotation;
 
 /**
  * @Route("/api")
@@ -86,6 +87,7 @@ class UserController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="userDeleted")
      * @Authenticated
      * @RequiredFields(fields={})
      * @Route("/user/{id}", methods={"DELETE"})
@@ -111,6 +113,7 @@ class UserController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="roleSet")
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin"})
      * @RequiredFields(fields={"role"})
@@ -144,7 +147,7 @@ class UserController extends BaseController
             return; //action performed on himself
         }
 
-        if (!$this->security->getUser()->getRole() === UserRolesEnum::Admin->value) {
+        if ($this->security->isAdmin()) {
             return; //action performed by admin
         }
 

@@ -17,6 +17,7 @@ use App\Paginator\Annotation\Pagination;
 use Security\Annotation\Authenticated;
 use Security\Annotation\RoleGuard;
 use Security\Annotation\RequiredFields;
+use App\Logger\LoggerAnnotation;
 
 /**
  * @Route("/api/work-time")
@@ -42,6 +43,7 @@ class WorkTimeController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="created")
      * @Authenticated
      * @RequiredFields(fields={"time", "ticket", "createdAt"})
      * @RoleGuard(roles={"RoleAdmin","RoleEmployee"})
@@ -69,6 +71,7 @@ class WorkTimeController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="updated")
      * @Authenticated
      * @RequiredFields(fields={"time", "ticket", "createdAt"})
      * @RoleGuard(roles={"RoleAdmin", "RoleEmployee"})
@@ -102,6 +105,7 @@ class WorkTimeController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="deleted")
      * @Authenticated
      * @RequiredFields(fields={})
      * @RoleGuard(roles={"RoleAdmin","RoleEmployee"})
@@ -124,7 +128,9 @@ class WorkTimeController extends BaseController
             throw new AccessDeniedHttpException("You dont have permissions");
         }
 
-        $this->entityManager->remove($workTime);
+        $workTime->setDeletedAt(new \DateTime());
+
+        $this->entityManager->persist($workTime);
         $this->entityManager->flush();
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);

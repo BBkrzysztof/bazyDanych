@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Interface\CreatedAtEntityInterface;
+use App\Interface\LoggerInterface;
+use App\Interface\SoftDeleteEntityInterface;
 use App\Trait\CreatedAtEntityTrait;
+use App\Trait\SoftDeleteEntityTrait;
 use Security\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator\Annotation\RoleValidator;
@@ -14,8 +17,9 @@ use App\Validator\Annotation\HoursInDay;
  * @ORM\Entity
  * @ORM\Table(name="work_time")
  */
-class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
+class WorkTime implements \JsonSerializable, CreatedAtEntityInterface,SoftDeleteEntityInterface, LoggerInterface
 {
+    use SoftDeleteEntityTrait;
     /**
      * @ORM\Id
      * @ORM\Column(type="guid", unique=true)
@@ -144,6 +148,17 @@ class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
                 'role' => $this->employee->getRole(),
             ],
             'createdAt' => $this->getCreatedAt(),
+        ];
+    }
+
+    public function getLoggerMessages(): array
+    {
+        $createdAt = $this->createdAt->format('Y-m-d H:i:s');
+
+        return [
+            'created' => "Work time {$this->time}h created at {$createdAt}",
+            'updated' => "Work time updated to: {$this->time}h",
+            'deleted' => "Work time deleted with hours: {$this->time}; created at {$createdAt}",
         ];
     }
 }

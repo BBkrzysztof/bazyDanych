@@ -17,6 +17,7 @@ use App\Paginator\Annotation\Pagination;
 use Security\Annotation\Authenticated;
 use Security\Annotation\RoleGuard;
 use Security\Annotation\RequiredFields;
+use App\Logger\LoggerAnnotation;
 
 /**
  * @Route("/api/comment")
@@ -43,6 +44,7 @@ class CommentController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="create")
      * @Authenticated
      * @RequiredFields(fields={"content"})
      * @Route("/{ticketId}", methods={"POST"})
@@ -69,10 +71,11 @@ class CommentController extends BaseController
         $this->entityManager->persist($comment);
         $this->entityManager->flush();
 
-        return new JsonResponse($comment, Response::HTTP_CREATED);
+        return new JsonResponse($comment, Response::HTTP_OK);
     }
 
     /**
+     * @LoggerAnnotation(action="updated")
      * @Authenticated
      * @RequiredFields(fields={"content"})
      * @Route("/{id}", methods={"PUT"})
@@ -100,6 +103,7 @@ class CommentController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="deleted")
      * @Authenticated
      * @RequiredFields(fields={})
      * @Route("/{id}", methods={"DELETE"})
@@ -121,7 +125,9 @@ class CommentController extends BaseController
             throw new AccessDeniedHttpException();
         }
 
-        $this->entityManager->remove($comment);
+        $comment->setDeletedAt(new \DateTime());
+
+        $this->entityManager->persist($comment);
         $this->entityManager->flush();
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);

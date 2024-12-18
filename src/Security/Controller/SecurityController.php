@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Security\Annotation\RequiredFields;
 use Security\Annotation\Authenticated;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Logger\LoggerAnnotation;
 
 /**
  * @Route("/api")
@@ -116,6 +117,7 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @LoggerAnnotation(action="passwordReset")
      * @Authenticated
      * @RequiredFields(fields={"password"})
      * @Route("/reset-password/{token}", methods={"POST"})
@@ -129,14 +131,16 @@ class SecurityController extends AbstractController
             throw new BadRequestException('Invalid reset password token');
         }
 
-        $user->setPassword($password);
-        $user->setResetPasswordToken('');
-        foreach ($user->getTokens() as $token) {
-            $this->entityManager->remove($token);
-        }
+        $this->entityManager->wrapInTransaction(function (EntityManagerInterface $entityManager) use ($user, $password) {
+            $user->setPassword($password);
+            $user->setResetPasswordToken('');
+            foreach ($user->getTokens() as $token) {
+                $entityManager->remove($token);
+            }
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
+            $entityManager->persist($user);
+            $entityManager->flush();
+        });
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }

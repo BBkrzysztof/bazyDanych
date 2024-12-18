@@ -92,7 +92,9 @@ class TagController extends BaseController
             throw new NotFoundHttpException();
         }
 
-        $this->entityManager->remove($tag);
+        $tag->setDeletedAt(new \DateTime());
+
+        $this->entityManager->persist($tag);
         $this->entityManager->flush();
 
         return new JsonResponse([], Response::HTTP_CREATED);

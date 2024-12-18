@@ -54,6 +54,18 @@ services:
     tags:
       - { name: kernel.event_listener, event: kernel.exception }
 
+  App\Exception\Handler\ExceptionHandler:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception }
+
   App\Paginator\EventListener\PaginationListener:
     tags:
       - { name: kernel.event_listener, event: kernel.controller, priority: 2 }
+
+  App\Logger\EventListener\AnnotationListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller }
+
+  App\Logger\EventListener\DoctrineEventListener:
+    tags:
+      - { name: doctrine.event_subscriber }

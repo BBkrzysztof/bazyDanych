@@ -2,6 +2,7 @@
 
 namespace Security\Entity;
 
+use App\Interface\LoggerInterface;
 use App\Interface\SoftDeleteEntityInterface;
 use App\Trait\SoftDeleteEntityTrait;
 use Doctrine\Common\Collections\Collection;
@@ -17,7 +18,7 @@ use Security\Enum\UserRolesEnum;
  * @ORM\Entity
  * @ORM\Table(name="user")
  */
-class User implements \JsonSerializable, SoftDeleteEntityInterface
+class User implements \JsonSerializable, SoftDeleteEntityInterface, LoggerInterface
 {
     use SoftDeleteEntityTrait;
 
@@ -167,4 +168,12 @@ class User implements \JsonSerializable, SoftDeleteEntityInterface
         ];
     }
 
+    public function getLoggerMessages(): array
+    {
+        return [
+            'passwordReset' => 'User changed password',
+            'roleSet' => "User {$this->email} role changed to {$this->role}",
+            'userDeleted' =>"User {$this->email} has been deleted",
+        ];
+    }
 }

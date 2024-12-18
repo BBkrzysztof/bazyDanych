@@ -17,6 +17,7 @@ use App\Paginator\Annotation\Pagination;
 use Security\Annotation\Authenticated;
 use Security\Annotation\RoleGuard;
 use Security\Annotation\RequiredFields;
+use App\Logger\LoggerAnnotation;
 
 /**
  * @Route("/api/ticket")
@@ -33,6 +34,7 @@ class TicketController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="created")
      * @Authenticated
      * @RequiredFields(fields={"title", "content", "tags"})
      * @Route("/", methods={"POST"})
@@ -54,6 +56,7 @@ class TicketController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="updated")
      * @Authenticated
      * @RequiredFields(fields={"title", "content", "tags"})
      * @Route("/{id}", methods={"PUT"})
@@ -83,6 +86,7 @@ class TicketController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="deleted")
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin"})
      * @Route("/{id}", methods={"DELETE"})
@@ -106,6 +110,7 @@ class TicketController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="statusChange")
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin", "RoleEmployee"})
      * @RequiredFields(fields={"status"})
@@ -135,6 +140,7 @@ class TicketController extends BaseController
     }
 
     /**
+     * @LoggerAnnotation(action="assigned")
      * @Authenticated
      * @RequiredFields(fields={"worker"})
      * @RoleGuard(roles={"RoleAdmin"})

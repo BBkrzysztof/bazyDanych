@@ -44,9 +44,46 @@ class Log implements \JsonSerializable, CreatedAtEntityInterface
      */
     private ?User $user = null;
 
+    public function __construct(string $action, ?User $user, ?Ticket $ticket)
+    {
+        $this->action = $action;
+        $this->user = $user;
+        $this->ticket = $ticket;
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @return Ticket|null
+     */
+    public function getTicket(): ?Ticket
+    {
+        return $this->ticket;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
 
     public function jsonSerialize(): array
     {
-        return [];
+        $user = $this->getUser() ? [
+            'id' => $this->getUser()->getId(),
+            'email' => $this->getUser()->getEmail(),
+            'role' => $this->getUser()->getRole()
+        ] : [];
+
+        $ticket = $this->getTicket() ? $this->getTicket()->jsonSerialize() : [];
+
+        return [
+            'id' => $this->id,
+            'action' => $this->action,
+            'user' => $user,
+            'ticket' => $ticket
+        ];
     }
 }

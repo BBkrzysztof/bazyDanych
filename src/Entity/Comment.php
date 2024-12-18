@@ -3,17 +3,22 @@
 namespace App\Entity;
 
 use App\Interface\CreatedAtEntityInterface;
+use App\Interface\LoggerInterface;
+use App\Interface\SoftDeleteEntityInterface;
 use App\Trait\CreatedAtEntityTrait;
+use App\Trait\SoftDeleteEntityTrait;
 use Security\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use App\Logger\LoggerAnnotation;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="comment")
  */
-class Comment implements \JsonSerializable, CreatedAtEntityInterface
+class Comment implements \JsonSerializable, CreatedAtEntityInterface, SoftDeleteEntityInterface, LoggerInterface
 {
     use CreatedAtEntityTrait;
+    use SoftDeleteEntityTrait;
 
     /**
      * @ORM\Id
@@ -120,6 +125,15 @@ class Comment implements \JsonSerializable, CreatedAtEntityInterface
             ],
             'ticket' => $this->getTicket()->getId(),
             'createdAt' => $this->getCreatedAt()
+        ];
+    }
+
+    public function getLoggerMessages(): array
+    {
+        return [
+            'create' => "Comment created",
+            'updated' => "Comment updated",
+            'deleted' => "Comment deleted",
         ];
     }
 }
