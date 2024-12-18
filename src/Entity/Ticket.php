@@ -6,6 +6,7 @@ use App\Enum\TicketStatusEnum;
 use App\Interface\CreatedAtEntityInterface;
 use App\Interface\SoftDeleteEntityInterface;
 use App\Trait\CreatedAtEntityTrait;
+use App\Trait\SoftDeleteEntityTrait;
 use Doctrine\Common\Collections\Collection;
 use Security\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,9 +17,10 @@ use App\Validator\Annotation\RoleValidator;
  * @ORM\Entity
  * @ORM\Table(name="ticket")
  */
-class Ticket implements \JsonSerializable, CreatedAtEntityInterface
+class Ticket implements \JsonSerializable, CreatedAtEntityInterface, SoftDeleteEntityInterface
 {
     use CreatedAtEntityTrait;
+    use SoftDeleteEntityTrait;
 
     /**
      * @ORM\Id

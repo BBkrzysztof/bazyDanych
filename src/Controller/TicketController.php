@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Paginator\Annotation\Pagination;
 use Security\Annotation\Authenticated;
@@ -84,12 +85,24 @@ class TicketController extends BaseController
     /**
      * @Authenticated
      * @RoleGuard(roles={"RoleAdmin"})
-     * @Route("/", methods={"DELETE"})
+     * @Route("/{id}", methods={"DELETE"})
      */
-    public function deleteAction(): JsonResponse
+    public function deleteAction($id): JsonResponse
     {
-        //@todo add delete ticket logic
-        return new JsonResponse();
+        /** @var Ticket $ticket */
+        $ticket = $this->entityManager->getRepository(Ticket::class)
+            ->findOneBy(['id' => $id]);
+
+        if (!$ticket) {
+            throw new NotFoundHttpException();
+        }
+
+        $ticket->setDeletedAt(new \DateTime());
+
+        $this->entityManager->persist($ticket);
+        $this->entityManager->flush();
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }
 
     /**
