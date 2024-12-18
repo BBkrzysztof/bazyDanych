@@ -26,9 +26,9 @@ class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
 
     /**
      * @HoursInDay
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
-    private int $time;
+    private float $time;
 
     /**
      * @ORM\ManyToOne(
@@ -70,17 +70,17 @@ class WorkTime implements \JsonSerializable, CreatedAtEntityInterface
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getTime(): int
+    public function getTime(): float
     {
         return $this->time;
     }
 
     /**
-     * @param int $time
+     * @param float $time
      */
-    public function setTime(int $time): void
+    public function setTime(float $time): void
     {
         $this->time = $time;
     }

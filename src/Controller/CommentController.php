@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Paginator\Annotation\Pagination;
 use Security\Annotation\Authenticated;
@@ -32,11 +33,11 @@ class CommentController extends BaseController
             ->findOneBy(['id' => $id]);
 
         if (!$ticket) {
-            throw new EntityNotFoundException();
+            throw new NotFoundHttpException();
         }
 
         return new JsonResponse(
-            $ticket->getComments(),
+            $ticket->getComments()->toArray(),
             Response::HTTP_OK
         );
     }
@@ -53,7 +54,7 @@ class CommentController extends BaseController
             ->findOneBy(['id' => $ticketId]);
 
         if (!$ticket) {
-            throw new EntityNotFoundException();
+            throw new NotFoundHttpException();
         }
 
         /** @var Comment $comment */
@@ -110,7 +111,7 @@ class CommentController extends BaseController
             ->findOneBy(['id' => $id]);
 
         if (!$comment) {
-            throw new EntityNotFoundException();
+            throw new NotFoundHttpException();
         }
 
         if (

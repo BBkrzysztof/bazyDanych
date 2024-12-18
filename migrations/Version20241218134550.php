@@ -10,11 +10,11 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241216183426 extends AbstractMigration
+final class Version20241218134550 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'added Comment, Log, Tag, Ticket and work time entities';
+        return 'added Comment, Log, Tag, Ticket and Work time entities';
     }
 
     public function up(Schema $schema): void
@@ -24,9 +24,9 @@ final class Version20241216183426 extends AbstractMigration
         $this->addSql('CREATE TABLE log (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', ticket_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', user_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', action VARCHAR(255) NOT NULL, created_at DATE NOT NULL, INDEX IDX_8F3F68C5700047D2 (ticket_id), INDEX IDX_8F3F68C5A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE tag (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', name VARCHAR(255) NOT NULL, created_at DATE NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE tickets_tags (tag_id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', ticket_id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', INDEX IDX_6AC742FBBAD26311 (tag_id), INDEX IDX_6AC742FB700047D2 (ticket_id), PRIMARY KEY(tag_id, ticket_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE ticket (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', author_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', worker_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', title VARCHAR(255) NOT NULL, content VARCHAR(2000) NOT NULL, status VARCHAR(20) NOT NULL, updated_at DATE NOT NULL, closed_at DATE DEFAULT NULL, created_at DATE NOT NULL, INDEX IDX_97A0ADA3F675F31B (author_id), INDEX IDX_97A0ADA36B20BA36 (worker_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE ticket (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', author_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', worker_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', title VARCHAR(255) NOT NULL, content VARCHAR(2000) NOT NULL, status VARCHAR(20) NOT NULL, updated_at DATE DEFAULT NULL, closed_at DATE DEFAULT NULL, created_at DATE NOT NULL, INDEX IDX_97A0ADA3F675F31B (author_id), INDEX IDX_97A0ADA36B20BA36 (worker_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE ticket_tag (ticket_id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', tag_id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', INDEX IDX_F06CAF700047D2 (ticket_id), INDEX IDX_F06CAFBAD26311 (tag_id), PRIMARY KEY(ticket_id, tag_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE work_time (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', ticket_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', employee_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', time INT NOT NULL, created_at DATE NOT NULL, INDEX IDX_9657297D700047D2 (ticket_id), INDEX IDX_9657297D8C03F15C (employee_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE work_time (id CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', ticket_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', employee_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:guid)\', time DOUBLE PRECISION NOT NULL, created_at DATE NOT NULL, INDEX IDX_9657297D700047D2 (ticket_id), INDEX IDX_9657297D8C03F15C (employee_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526CF675F31B FOREIGN KEY (author_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C700047D2 FOREIGN KEY (ticket_id) REFERENCES ticket (id)');
         $this->addSql('ALTER TABLE log ADD CONSTRAINT FK_8F3F68C5700047D2 FOREIGN KEY (ticket_id) REFERENCES ticket (id)');

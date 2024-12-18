@@ -45,7 +45,7 @@ class User implements \JsonSerializable, SoftDeleteEntityInterface
      * @OneOf(enumPath="Security\Enum\UserRolesEnum", groups={"update-role"})
      * @ORM\Column(type="string", length=20)
      */
-    private string $role;
+    private string $role = 'RoleUser';
 
     /**
      * @ORM\Column(type="string", length=20)

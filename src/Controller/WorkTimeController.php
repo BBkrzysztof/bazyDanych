@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Paginator\Annotation\Pagination;
 use Security\Annotation\Authenticated;
@@ -113,7 +114,7 @@ class WorkTimeController extends BaseController
             ->findOneBy(['id' => $id]);
 
         if (!$workTime) {
-            throw new EntityNotFoundException();
+            throw new NotFoundHttpException();
         }
 
         if (

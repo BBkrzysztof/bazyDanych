@@ -218,6 +218,10 @@ class Ticket implements \JsonSerializable, CreatedAtEntityInterface
     public function jsonSerialize(): array
     {
         $author = $this->getAuthor();
+        $worker = $this->getWorker() ? [
+            'id' => $this->getWorker()->getId(),
+            'email' => $this->getWorker()->getEmail()
+        ] : [];
 
         return [
             'id' => $this->getId(),
@@ -230,6 +234,7 @@ class Ticket implements \JsonSerializable, CreatedAtEntityInterface
                 'email' => $author->getEmail(),
                 'role' => $author->getRole()
             ],
+            'worker' => $worker,
             'createdAt' => $this->getCreatedAt(),
             'updatedAt' => $this->getUpdatedAt(),
         ];
