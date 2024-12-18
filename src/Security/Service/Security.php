@@ -35,4 +35,9 @@ class Security
     {
         return $this->getUser()->getRole() === UserRolesEnum::Admin->value;
     }
+
+    public function isRoleUser(): bool
+    {
+        return $this->getUser()->getRole() === UserRolesEnum::User->value;
+    }
 }

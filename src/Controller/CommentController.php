@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller\BaseController\BaseController;
 use App\Entity\Comment;
 use App\Entity\Ticket;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -84,7 +85,10 @@ class CommentController extends BaseController
             $id
         );
 
-        if ($comment->getAuthor()->getId() !== $this->security->getUser()->getId()) {
+        if (
+            $this->security->isRoleUser() &&
+            $comment->getAuthor()->getId() !== $this->security->getUser()->getId()
+        ) {
             throw new AccessDeniedHttpException();
         }
 
@@ -109,7 +113,10 @@ class CommentController extends BaseController
             throw new EntityNotFoundException();
         }
 
-        if ($comment->getAuthor()->getId() !== $this->security->getUser()->getId()) {
+        if (
+            $this->security->isRoleUser() &&
+            $comment->getAuthor()->getId() !== $this->security->getUser()->getId()
+        ) {
             throw new AccessDeniedHttpException();
         }
 

@@ -22,7 +22,7 @@ class AccessDeniedHandler
         }
 
         $errors = [
-            'data' => $exception->getMessage()
+            'data' => $exception->getMessage() ?: "You dont have permissions"
         ];
 
         $event->setResponse(new JsonResponse($errors, Response::HTTP_FORBIDDEN));

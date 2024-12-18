@@ -217,13 +217,19 @@ class Ticket implements \JsonSerializable, CreatedAtEntityInterface
 
     public function jsonSerialize(): array
     {
+        $author = $this->getAuthor();
+
         return [
             'id' => $this->getId(),
             'title' => $this->getTitle(),
             'content' => $this->getContent(),
             'status' => $this->getStatus(),
             'tags' => $this->getTags()->toArray(),
-            'author' => $this->getAuthor(),
+            'author' => [
+                'id' => $author->getId(),
+                'email' => $author->getEmail(),
+                'role' => $author->getRole()
+            ],
             'createdAt' => $this->getCreatedAt(),
             'updatedAt' => $this->getUpdatedAt(),
         ];
