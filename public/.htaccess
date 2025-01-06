@@ -5,4 +5,14 @@
     RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
 </IfModule>
 
+# Włącz nagłówki CORS
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "http://localhost:3000"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS, PUT, DELETE"
+    Header set Access-Control-Allow-Headers "*"
+
+    # Ustaw Referrer-Policy
+    Header set Referrer-Policy "no-referrer-when-downgrade"
+</IfModule>
+
 SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
