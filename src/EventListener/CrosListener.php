@@ -16,7 +16,7 @@ class CrosListener
         if ($request->getMethod() === 'OPTIONS') {
             $response = new Response();
             $response->headers->set('Access-Control-Allow-Origin', '*');
-            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');        $response->headers->set('Access-Control-Allow-Headers', "*");
+            $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');        $response->headers->set('Access-Control-Allow-Headers', "*");
             $response->headers->set('Access-Control-Allow-Headers', "*");
 
             $response->setStatusCode(Response::HTTP_OK);
@@ -35,7 +35,7 @@ class CrosListener
 
         // Dodaj nagłówki CORS
         $response->headers->set('Access-Control-Allow-Origin', '*');
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
         $response->headers->set('Access-Control-Allow-Headers', "*");
         $response->headers->set('Referrer-Policy', 'no-referrer-when-downgrade');
     }

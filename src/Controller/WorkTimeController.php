@@ -26,7 +26,7 @@ class WorkTimeController extends BaseController
 {
     /**
      * @Authenticated
-     * @Pagination(likeFilters={"id"}, eqFilters={"ticket", "employee", "time"})
+     * @Pagination(likeFilters={"id"}, eqFilters={"ticket", "employee", "time", "date"})
      * @RoleGuard(roles={"RoleAdmin", "RoleEmployee"})
      * @Route("/", methods={"GET"})
      */
